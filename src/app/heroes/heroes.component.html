@@ -1,0 +1,35 @@
+<h2>My Heroes</h2>
+<div class="col-2">
+  <label for="new-hero">Hero name</label>
+  <input
+    type="text"
+    class="form-control"
+    id="formGroupExampleInput"
+    placeholder="Kane"
+    #heroName
+  />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="add(heroName.value); heroName.value = ''"
+  >
+    Add hero
+  </button>
+</div>
+
+<ul class="list-group col-2 mb-4">
+  <li
+    *ngFor="let hero of heroes"
+    class="list-group-item d-flex justify-content-between"
+  >
+    <a routerLink="/detail/{{ hero.id }}" class="text-decoration-none flex-row">
+      <span>{{ hero.id }}. </span>
+      <span>{{ hero.name }}</span>
+    </a>
+    <button type="button" class="btn btn-danger mr-auto" (click)="delete(hero)">
+      X
+    </button>
+  </li>
+</ul>
