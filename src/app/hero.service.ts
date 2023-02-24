@@ -17,6 +17,7 @@ export class HeroService {
   }
 
   private heroesUrl = 'https://60c9e7eb772a760017204b93.mockapi.io/todolist';
+  // private heroesUrl = 'http://localhost:8000/api/heroes';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) { }

@@ -2,7 +2,7 @@
   <h2>{{ hero.name | uppercase }} Details</h2>
   <div><span>ID: </span>{{ hero.id }}</div>
 
-  <div [formGroup]="userEmails">
+  <div [formGroup]="form">
     <div class="col-2 my-2">
       <label for="hero-name">Hero name</label>
       <input
@@ -11,7 +11,7 @@
         class="form-control"
         id="hero-name"
         placeholder="Name"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="name"
       />
     </div>
     <div class="col-2 my-2">
@@ -30,7 +30,7 @@
       <label for="hero-mail">Hero mail</label>
       <input
         [class.is-invalid]="
-          userEmails.get('email')?.invalid && userEmails.get('email')?.touched
+          form.get('email')?.invalid && form.get('email')?.touched
         "
         type="email"
         class="form-control"
@@ -39,7 +39,9 @@
       />
     </div>
 
-    <div *ngIf="(email?.invalid && email?.touched) || email?.dirty"></div>
+    <div *ngIf="email?.invalid" class="alert alert-danger col-2">
+      Please enter a valid email
+    </div>
     <div class="col-2 my-2">
       <label for="hero-age">Hero age</label>
       <input
@@ -48,7 +50,7 @@
         class="form-control"
         id="hero-age"
         placeholder="Age"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="age"
       />
     </div>
     <div class="col-2 my-2">
@@ -59,13 +61,17 @@
         class="form-control"
         id="hero-address"
         placeholder="Address"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="address"
       />
     </div>
   </div>
 
   <button type="button" (click)="goBack()">Go back</button>
-  <button type="button" (click)="save()" [disabled]="email?.invalid">
+  <button
+    type="button"
+    (click)="save()"
+    [disabled]="email?.invalid || !form.dirty"
+  >
     Save
   </button>
 </div>

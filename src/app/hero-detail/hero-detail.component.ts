@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 
 import { HeroService } from '../hero.service';
 
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-hero-detail',
@@ -15,12 +15,31 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class HeroDetailComponent {
   @Input() hero?: Hero;
+  form: FormGroup;
+
+  // form = new FormGroup({
+  //   email: new FormControl('', [
+  //     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+  //   name: new FormControl(''),
+  //   gender: new FormControl(''),
+  //   age: new FormControl(''),
+  //   address: new FormControl(''),
+  // });
 
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
     private location: Location,
-  ) { }
+    private fb: FormBuilder
+  ) {
+    this.form = fb.group({
+      name: "",
+      email: ["", Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      gender: "",
+      age: "",
+      address: "",
+    });
+  }
 
   ngOnInit(): void {
     this.getHero();
@@ -43,12 +62,7 @@ export class HeroDetailComponent {
     }
   }
 
-  userEmails = new FormGroup({
-    email: new FormControl('', [
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-  });
-
   get email() {
-    return this.userEmails.get('email')
+    return this.form.get('email')
   }
 }
