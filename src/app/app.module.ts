@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component'; // <-- NgM
 
 import { HttpClientModule } from '@angular/common/http';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { CapitalizePipe } from './capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -20,8 +21,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
-
+    HeroSearchComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,7 @@
   >
     <a routerLink="/detail/{{ hero.id }}" class="text-decoration-none flex-row">
       <span>{{ hero.id }}. </span>
-      <span>{{ hero.name }}</span>
+      <span>{{ hero.name | capitalize}}</span>
     </a>
     <button type="button" class="btn btn-danger mr-auto" (click)="delete(hero)">
       X
