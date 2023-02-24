@@ -1,18 +1,71 @@
 <div *ngIf="hero">
   <h2>{{ hero.name | uppercase }} Details</h2>
   <div><span>ID: </span>{{ hero.id }}</div>
-  <div class="col-2">
-    <label for="hero-name">Hero name</label>
-    <!-- <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" /> -->
-    <input
-      [(ngModel)]="hero.name"
-      type="text"
-      class="form-control"
-      id="formGroupExampleInput"
-      placeholder="Name"
-    />
-  </div>
-</div>
 
-<button type="button" (click)="goBack()">Go back</button>
-<button type="button" (click)="save()">Save</button>
+  <div [formGroup]="userEmails">
+    <div class="col-2 my-2">
+      <label for="hero-name">Hero name</label>
+      <input
+        [(ngModel)]="hero.name"
+        type="text"
+        class="form-control"
+        id="hero-name"
+        placeholder="Name"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="col-2 my-2">
+      <label for="hero-gender">Hero gender</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="hero.gender"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+      </select>
+    </div>
+    <div class="col-2 my-2">
+      <label for="hero-mail">Hero mail</label>
+      <input
+        [class.is-invalid]="
+          userEmails.get('email')?.invalid && userEmails.get('email')?.touched
+        "
+        type="email"
+        class="form-control"
+        formControlName="email"
+        [(ngModel)]="hero.mail"
+      />
+    </div>
+
+    <div *ngIf="(email?.invalid && email?.touched) || email?.dirty"></div>
+    <div class="col-2 my-2">
+      <label for="hero-age">Hero age</label>
+      <input
+        [(ngModel)]="hero.age"
+        type="text"
+        class="form-control"
+        id="hero-age"
+        placeholder="Age"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="col-2 my-2">
+      <label for="hero-address">Hero address</label>
+      <input
+        [(ngModel)]="hero.address"
+        type="text"
+        class="form-control"
+        id="hero-address"
+        placeholder="Address"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
+
+  <button type="button" (click)="goBack()">Go back</button>
+  <button type="button" (click)="save()" [disabled]="email?.invalid">
+    Save
+  </button>
+</div>

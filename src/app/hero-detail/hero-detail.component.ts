@@ -6,10 +6,12 @@ import { Location } from '@angular/common';
 
 import { HeroService } from '../hero.service';
 
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.css']
+  styleUrls: ['./hero-detail.component.css'],
 })
 export class HeroDetailComponent {
   @Input() hero?: Hero;
@@ -17,7 +19,7 @@ export class HeroDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -39,5 +41,14 @@ export class HeroDetailComponent {
       this.heroService.updateHero(this.hero)
         .subscribe(() => this.goBack());
     }
+  }
+
+  userEmails = new FormGroup({
+    email: new FormControl('', [
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+  });
+
+  get email() {
+    return this.userEmails.get('email')
   }
 }
